@@ -1,4 +1,4 @@
-# simple_e-commerce
+# frontend simple_e-commerce
 
 ## Build Setup
 
