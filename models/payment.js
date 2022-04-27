@@ -22,7 +22,7 @@ const PaymentSchema = Schema(
       type: Number,
       required: true,
     },
-    status_pembayaran: {
+    status_pesanan: {
       type: Boolean,
       default: false,
     },

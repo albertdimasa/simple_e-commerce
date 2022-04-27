@@ -31,11 +31,7 @@ routerBarang.put("/:barangId", async (req, res) => {
   try {
     const updateBarang = await Barang.updateOne(
       { _id: req.params.barangId },
-      {
-        nama: req.body.nama,
-        harga: req.body.harga,
-        // gambar: req.body.gambar,
-      }
+      req.body
     );
     res.json(updateBarang);
   } catch (err) {

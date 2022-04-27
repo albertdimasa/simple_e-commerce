@@ -10,9 +10,6 @@ const BarangSchema = Schema(
       type: Number,
       required: true,
     },
-    // gambar: {
-    //   type: String,
-    // },
   },
   {
     timestamps: true,

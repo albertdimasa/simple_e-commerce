@@ -34,10 +34,7 @@ routerPayment.put("/:paymentId", async (req, res) => {
   try {
     const updatePayment = await Payment.updateOne(
       { _id: req.params.paymentId },
-      {
-        nama: req.body.nama,
-        alamat: req.body.alamat,
-      }
+      req.body
     );
     res.json(updatePayment);
   } catch (err) {
