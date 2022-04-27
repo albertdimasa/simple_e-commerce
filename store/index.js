@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-console */
-
+import Swal from 'sweetalert2'
 const state = () => ({
   listBarang: [],
   listTransaksi: [],
@@ -20,6 +20,9 @@ const mutations = {
   deleteKeranjang(state, id) {
     state.listKeranjang.splice(id, 1)
     console.log(state.listKeranjang)
+  },
+  emptyKeranjang(state) {
+    state.listKeranjang = []
   },
 }
 
@@ -49,6 +52,32 @@ const actions = {
   },
   deleteKeranjang(store, id) {
     store.commit('deleteKeranjang', id)
+  },
+  postTransaksi(store, value) {
+    return this.$axios
+      .post(`http://localhost:5000/payment`, value, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => {
+        Swal.fire({
+          type: 'success',
+          title: 'Berhasil Melakukan Pembelian',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+        store.commit('emptyKeranjang')
+      })
+      .catch((err) => {
+        Swal.fire({
+          type: 'error',
+          title: 'Oops...',
+          text: err,
+          footer: '<a href="">Why do I have this issue?</a>',
+        })
+        console.log(err)
+      })
   },
 }
 

@@ -33,12 +33,11 @@
       <!-- Data Pembeli -->
       <div class="col-md-8 order-md-1">
         <h4 class="mb-3">Data Pembeli</h4>
-        <form @submit.prevent="sendData">
+        <form @submit="sendData">
           <div class="mb-3">
             <label for="nama">Nama Lengkap</label>
             <input
               v-model="form.nama"
-              name="pembayaran"
               type="text"
               class="form-control"
               placeholder="Albert Abraham"
@@ -63,11 +62,9 @@
               <input
                 id="transfer bank"
                 v-model="form.pembayaran"
-                name="pembayaran"
                 type="radio"
                 class="custom-control-input"
                 value="transfer bank"
-                checked
               />
               <label class="custom-control-label" for="transfer bank"
                 >Transfer Bank</label
@@ -77,7 +74,6 @@
               <input
                 id="virtual account"
                 v-model="form.pembayaran"
-                name="pembayaran"
                 type="radio"
                 class="custom-control-input"
                 value="virtual account"
@@ -90,7 +86,6 @@
               <input
                 id="cod"
                 v-model="form.pembayaran"
-                name="pembayaran"
                 type="radio"
                 class="custom-control-input"
                 value="cod"
@@ -126,7 +121,7 @@ export default {
       form: {
         nama: '',
         alamat: '',
-        pembayaran: '',
+        pembayaran: 'cod',
         pembelian: this.keranjang,
         total_harga: 0,
       },
@@ -138,7 +133,9 @@ export default {
       return this.$store.state.listKeranjang.length
     },
     totalHarga() {
-      return this.keranjang.map((item) => (this.form.total_harga += item.harga))
+      return this.keranjang != null
+        ? this.keranjang.map((item) => (this.form.total_harga += item.harga))
+        : 0
     },
   },
   methods: {
@@ -146,14 +143,7 @@ export default {
       this.$store.dispatch('deleteKeranjang', value)
     },
     sendData() {
-      this.$axios
-        .$post(`http://localhost:5000/payment`, this.form)
-        .then((response) => {
-          console.log(response)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      this.$store.dispatch('postTransaksi', this.form)
     },
   },
 }
