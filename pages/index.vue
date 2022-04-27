@@ -15,16 +15,12 @@ export default {
       return this.$store.state.listBarang
     },
   },
-  created() {
+  mounted() {
     this.fetchBarang()
-    this.fetchTransaksi()
   },
   methods: {
     fetchBarang() {
       this.$store.dispatch('fetchBarang')
-    },
-    fetchTransaksi() {
-      this.$store.dispatch('fetchTransaksi')
     },
   },
 }

@@ -16,6 +16,9 @@ const mutations = {
   },
   setKeranjang(state, id) {
     state.listKeranjang.push(state.listBarang.find((item) => item._id == id))
+  },
+  deleteKeranjang(state, id) {
+    state.listKeranjang.splice(id, 1)
     console.log(state.listKeranjang)
   },
 }
@@ -31,9 +34,6 @@ const actions = {
         console.log(error)
       })
   },
-  changeStatusPesanan(store, id) {
-    store.commit('setKeranjang', id)
-  },
   fetchTransaksi(store) {
     return this.$axios
       .$get(`http://localhost:5000/payment`)
@@ -43,6 +43,12 @@ const actions = {
       .catch((error) => {
         console.log(error)
       })
+  },
+  changeStatusPesanan(store, id) {
+    store.commit('setKeranjang', id)
+  },
+  deleteKeranjang(store, id) {
+    store.commit('deleteKeranjang', id)
   },
 }
 

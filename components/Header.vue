@@ -11,7 +11,7 @@
             <b-icon icon="cart-fill" variant="white" class="h4 my-auto">
             </b-icon>
             <b-badge class="bg-danger text-white p-1 my-auto">{{
-              status
+              cart
             }}</b-badge>
           </b-nav-item>
         </b-navbar-nav>
@@ -29,7 +29,7 @@
 export default {
   name: 'HeaderComponent',
   computed: {
-    status() {
+    cart() {
       return this.$store.state.listKeranjang.length
     },
   },
@@ -37,5 +37,3 @@ export default {
   methods: {},
 }
 </script>
-
-<style></style>
